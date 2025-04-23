@@ -1,7 +1,4 @@
-
 {% load static %}
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,53 +6,166 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Layout with Banner, Menu, and Content</title>
     <link rel="stylesheet" href="{% static 'base.css' %}" type="text/css">
+    <style>
+        /* CSS SHEET- plz ignore the css  */
+        body {
+            background: url("{% static '0e333638a98b3771c7dc8a071ece5243.gif' %}") no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        header {
+            background-color: #228B22; /* forest green */
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* (Login/Logout) */
+        .auth-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+        }
+
+        .auth-controls a,
+        .auth-controls button {
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            margin-left: 10px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .auth-controls a:hover,
+        .auth-controls button:hover {
+            color: pink;
+        }
+
+        /* About Us Button */
+        .about-us-btn {
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            margin-left: 10px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .about-us-btn:hover {
+            color: pink;
+        }
+
+        /* Banner Image */
+        .banner img {
+            height: 120px;
+        }
+
+        /* Sidebar and Content */
+        .container {
+            display: flex;
+            min-height: 80vh;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            background-color: #228B22; 
+            color: white;
+            width: 200px;
+            padding: 20px;
+            flex-shrink: 0;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /*  */
+        .content {
+            flex-grow: 1;
+            margin-left: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.85); /* transparent bckground */
+            border-radius: 10px;
+            margin: 20px;
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: #228B22;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <div class="auth-controls">
+            {% if user.is_authenticated %}
+                {{ user.username }}
+                <form action="{% url 'logout' %}?next=/" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
+                Not Logged In
+                <a href="{% url 'login' %}?next=/">Login</a>
+            {% endif %}
+            <!-- About Us Button -->
+            <a href="{% url 'about_us' %}" class="about-us-btn">About Us</a>
+        </div>
+        <div class="banner">
+            <img src="{% static 'banner.jpeg' %}" alt="Banner">
+        </div>
+    </header>
 
-<header>
+    <div class="container">
+        <nav class="sidebar">
+            <ul>
+                {% block sidenav %}
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                {% endblock sidenav %}
+            </ul>
+        </nav>
 
-    <span style="float: right;">
-    {% if user.is_authenticated %}
-       {{ user.username}}
-       <form action="{% url 'logout' %}?next=/" method="post">
-           <button type="submit">logout</button>
-           {% csrf_token %}
-       </form>
-    {% else %}
-       Not Logged in
-       <a href="{% url 'login' %}?next=/">login</a>
-    {% endif %}
-    </span>
-
-    <div class="banner">
-        <img src="{%static 'banner.jpeg' %}" height="120"/>
+        <main class="content">
+            {% block content %}
+                <h1>Main Content</h1>
+                <p>Welcome to the main content area!</p>
+            {% endblock content %}
+        </main>
     </div>
-</header>
 
-<div class="container">
-    <nav class="sidebar">
-        <ul>
-            {% block sidenav %}
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
-            {% endblock sidenav %}
-        </ul>
-    </nav>
-
-    <main class="content">
-        {% block content %}
-            <h1> Main Content </h1>
-        {% endblock content %}
-    </main>
-
-
-</div>
-<footer>
-    <p>&copy; 2025 My Web Layout</p>
-</footer>
-
+    <footer>
+        <p>&copy; 2025 My Web Layout</p>
+    </footer>
 </body>
 </html>
-
