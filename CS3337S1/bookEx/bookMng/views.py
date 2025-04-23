@@ -100,3 +100,7 @@ def mybooks(request):
                       'books': books
                   })
 
+def about_us(request):
+    return render(request,
+                  'bookMng/about_us.html')
+
