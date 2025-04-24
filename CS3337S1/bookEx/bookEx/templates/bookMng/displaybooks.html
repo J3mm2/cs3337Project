@@ -17,19 +17,10 @@
               Book Name
           </th>
           <th>
-              Book Picture
-          </th>
-          <th>
               Book Price
           </th>
           <th>
               User Name
-          </th>
-          <th>
-              Book Post Date
-          </th>
-          <th>
-              Book Web
           </th>
         </tr>
         {% for book in books %}
@@ -38,19 +29,10 @@
              <a href="book_detail/{{ book.id }}">  {{ book.name }} </a>
          </td>
          <td>
-           <img src="{% static book.pic_path %}" width="100"/>
-         </td>
-         <td>
             {{ book.price }}
          </td>
           <td>
             {{ book.username }}
-         </td>
-           <td>
-            {{ book.publishdate }}
-         </td>
-         <td>
-            {{ book.web }}
          </td>
         </tr>
     {% endfor %}
