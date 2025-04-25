@@ -33,7 +33,7 @@
           </th>
       </tr>
        <tr>
-           <td>
+         <td>
            <img src="{% static book.pic_path %}" width="100" />
          </td>
          <td>
@@ -48,11 +48,37 @@
            <td>
             {{ book.publishdate }}
          </td>
-           <td>
+         <td>
                {{ book.web }}
-           </td>
+         </td>
       </tr>
    </table>
+
+    {% if user.is_authenticated %}
+  <form action="{% url 'toggle_favorite' book_id=book.id %}" method="post" style="margin-top: 20px;">
+    {% csrf_token %}
+    <button type="submit" style="
+      padding: 10px 16px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: {% if is_favorite %}#ffe6e6{% else %}#e6f0ff{% endif %};
+      color: {% if is_favorite %}#cc0000{% else %}#003366{% endif %};
+      transition: 0.3s;
+    ">
+      {% if is_favorite %}
+        ❤️ Favorited — Click to Remove
+      {% else %}
+        🤍 Add to Favorites
+      {% endif %}
+    </button>
+  </form>
+{% else %}
+  <p><a href="{% url 'login' %}?next={% url 'book_detail' book.id %}">Log in</a> to add this book to your favorites.</p>
+{% endif %}
+
    <br><br>
    <a href="{% url 'displaybooks' %}">← Back to all books</a>
 {% endblock content %}
