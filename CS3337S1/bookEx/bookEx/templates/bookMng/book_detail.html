@@ -75,9 +75,47 @@
       {% endif %}
     </button>
   </form>
-{% else %}
-  <p><a href="{% url 'login' %}?next={% url 'book_detail' book.id %}">Log in</a> to add this book to your favorites.</p>
 {% endif %}
+
+   <div style="margin-top: 30px; margin-bottom: 30px;">
+      <h2>Comments</h2>
+
+      {% if comments %}
+         <div style="margin-bottom: 20px;">
+            {% for comment in comments %}
+               <div style="margin-bottom: 15px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+                  <div style="font-weight: bold;">{{ comment.user.username }}</div>
+                   <div style="font-size: 0.8em; color: #666; margin-bottom: 8px;">{{ comment.created_date|date:"F j, Y" }}</div>
+                   <div>{{ comment.text }}</div>
+               </div>
+            {% endfor %}
+         </div>
+      {% else %}
+         <p>No comments yet. Be the first to comment!</p>
+      {% endif %}
+
+      <div style="margin-top: 20px;">
+
+         {% if user.is_authenticated %}
+            <form method="post" action="">
+               {% csrf_token %}
+               <div style="margin-bottom: 10px;">
+                  {{ comment_form.text }}
+               </div>
+               <button type="submit" style="
+                  padding: 8px 16px;
+                  font-size: 14px;
+                  font-weight: bold;
+                  border: none;
+                  border-radius: 8px;
+                  cursor: pointer;
+                  background-color: #e6f0ff;
+                  color: #003366;
+               ">Submit Comment</button>
+            </form>
+         {% endif %}
+      </div>
+   </div>
 
    <br><br>
    <a href="{% url 'displaybooks' %}">← Back to all books</a>
