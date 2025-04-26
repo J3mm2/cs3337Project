@@ -27,3 +27,12 @@ class Favorite(models.Model):
 
     class Meta:
         unique_together = ('user', 'book')
+
+class Comment(models.Model):
+    book = models.ForeignKey(Book, related_name="comments", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Changed to ForeignKey for proper user association
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.book.name} - {self.user.username}'

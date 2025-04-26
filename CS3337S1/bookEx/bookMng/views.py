@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from .models import MainMenu, Book, Favorite
-from .forms import BookForm
+from .forms import BookForm, CommentForm
 
 from django.http import HttpResponseRedirect
 
@@ -61,12 +61,29 @@ def book_detail(request, book_id):
     is_favorite = False
     if request.user.is_authenticated:
         is_favorite = Favorite.objects.filter(user=request.user, book=book).exists()
+
+    # Handle comment form submission
+    comments = book.comments.all().order_by('-date_added')
+
+    if request.method == 'POST' and 'comment_submit' in request.POST and request.user.is_authenticated:
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.book = book
+            new_comment.user = request.user
+            new_comment.save()
+            return redirect('book_detail', book_id=book_id)
+    else:
+        comment_form = CommentForm()
+
     return render(request,
                   'bookMng/book_detail.html',
                   {
                       'item_list': MainMenu.objects.all(),
                       'book': book,
-                      'is_favorite': is_favorite
+                      'is_favorite': is_favorite,
+                      'comments': comments,
+                      'comment_form': comment_form
                   })
 
 @login_required
