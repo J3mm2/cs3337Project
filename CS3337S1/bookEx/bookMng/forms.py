@@ -15,10 +15,10 @@ class BookForm(ModelForm):
             'picture',
         ]
 
-class CommentForm(forms.ModelForm):
+class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        fields = ['body']
+        fields = ['text']
         widgets = {
-            'body': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter your comment here...', 'rows': 4}),
+            'text': forms.Textarea(attrs={'class': 'form-control', 'rows': 4, 'placeholder': 'Add your comment here...'}),
         }

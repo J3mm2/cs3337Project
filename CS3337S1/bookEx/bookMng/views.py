@@ -2,9 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
+
 # Create your views here.
-from .models import MainMenu, Book, Favorite
+from .models import MainMenu, Book, Favorite, Comment
 from .forms import BookForm, CommentForm
+
 
 from django.http import HttpResponseRedirect
 
@@ -12,17 +14,19 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy, reverse
 
+
 def index(request):
     item_list = MainMenu.objects.all()  # Just fetch the menu items from the database
 
     return render(request, 'bookMng/index.html', {'item_list': item_list})
+
 
 def postbook(request):
     submitted = False
     if request.method == 'POST':
         form = BookForm(request.POST, request.FILES)
         if form.is_valid():
-            #form.save()
+            # form.save()
             book = form.save(commit=False)
             try:
                 book.username = request.user
@@ -58,23 +62,25 @@ def displaybooks(request):
 def book_detail(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     book.pic_path = book.picture.url[14:]
+    comments = Comment.objects.filter(book=book).order_by('-created_date')
+
     is_favorite = False
     if request.user.is_authenticated:
         is_favorite = Favorite.objects.filter(user=request.user, book=book).exists()
 
-    # Handle comment form submission
-    comments = book.comments.all().order_by('-date_added')
-
-    if request.method == 'POST' and 'comment_submit' in request.POST and request.user.is_authenticated:
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            new_comment = comment_form.save(commit=False)
-            new_comment.book = book
-            new_comment.user = request.user
-            new_comment.save()
-            return redirect('book_detail', book_id=book_id)
-    else:
-        comment_form = CommentForm()
+    # Handle comment form
+    comment_form = None
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                new_comment = comment_form.save(commit=False)
+                new_comment.book = book
+                new_comment.user = request.user
+                new_comment.save()
+                return redirect('book_detail', book_id=book_id)
+        else:
+            comment_form = CommentForm()
 
     return render(request,
                   'bookMng/book_detail.html',
@@ -85,6 +91,7 @@ def book_detail(request, book_id):
                       'comments': comments,
                       'comment_form': comment_form
                   })
+
 
 @login_required
 def toggle_favorite(request, book_id):
@@ -97,6 +104,8 @@ def toggle_favorite(request, book_id):
         Favorite.objects.create(user=request.user, book=book)
 
     return redirect('book_detail', book_id=book_id)
+
+
 @login_required
 def my_favorites(request):
     favorites = Favorite.objects.filter(user=request.user).select_related('book')
@@ -110,6 +119,7 @@ def my_favorites(request):
                       'books': books
                   })
 
+
 def book_delete(request, book_id):
     book = Book.objects.get(id=book_id)
     book.delete()
@@ -119,6 +129,7 @@ def book_delete(request, book_id):
                   {
                       'item_list': MainMenu.objects.all(),
                   })
+
 
 class Register(CreateView):
     template_name = 'registration/register.html'
