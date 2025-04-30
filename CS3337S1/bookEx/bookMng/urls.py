@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -11,4 +12,5 @@ urlpatterns = [
     path('book_delete/<int:book_id>/', views.book_delete, name='book_delete'),
     path('about_us/', views.about_us, name='about_us'),
     path('toggle_favorite/<int:book_id>/', views.toggle_favorite, name='toggle_favorite'),  # Corrected URL pattern
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
 ]

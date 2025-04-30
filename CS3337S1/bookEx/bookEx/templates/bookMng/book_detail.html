@@ -10,49 +10,23 @@
 {% endblock sidenav %}
 
 {% block content %}
-   <h1>Book Detail</h1>
-   <table border="2" >
-      <tr>
-          <th>
-              Book Picture
-          </th>
-          <th>
-              Book Name
-          </th>
-          <th>
-              Book Price
-          </th>
-          <th>
-              User Name
-          </th>
-          <th>
-              Book Post Date
-          </th>
-          <th>
-              Book Web
-          </th>
-      </tr>
-       <tr>
-         <td>
-           <img src="{% static book.pic_path %}" width="100" />
-         </td>
-         <td>
-            {{ book.name }}
-         </td>
-         <td>
-            {{ book.price }}
-         </td>
-          <td>
-            {{ book.username }}
-         </td>
-           <td>
-            {{ book.publishdate }}
-         </td>
-         <td>
-               {{ book.web }}
-         </td>
-      </tr>
-   </table>
+<div style="display: flex; align-items: flex-start; background: rgba(255,255,255,0.8); padding: 20px; border-radius: 15px;">
+    <!-- Book Image -->
+    <div>
+        <img src="{% static book.pic_path %}" alt="Book Image" style="width: 200px; height: auto; border-radius: 10px;">
+    </div>
+
+    <!-- Book Info -->
+    <div style="margin-left: 30px;">
+        <h1>{{ book.name }}</h1>
+        <p><strong>Price:</strong> ${{ book.price }}</p>
+        <p><strong>Posted by:</strong> {{ book.username }}</p>
+        <p><strong>Date:</strong> {{ book.publishdate }}</p>
+        <p><strong>Web:</strong> <a href="{{ book.web }}">{{ book.web }}</a></p>
+
+    </div>
+</div>
+
 
     {% if user.is_authenticated %}
   <form action="{% url 'toggle_favorite' book_id=book.id %}" method="post" style="margin-top: 20px;">
