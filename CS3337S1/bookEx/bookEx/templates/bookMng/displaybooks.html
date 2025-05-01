@@ -10,23 +10,17 @@
 {% endblock sidenav %}
 
 {% block content %}
-    <h1>Display Books</h1>
-    <table class="book-table">
-        <thead>
-            <tr>
-                <th>Book Name</th>
-                <th>Book Price</th>
-                <th>User Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for book in books %}
-            <tr>
-                <td><a href="book_detail/{{ book.id }}">{{ book.name }}</a></td>
-                <td>{{ book.price }}</td>
-                <td>{{ book.username }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<h2 class="section-title">Books</h2>
+<div class="book-grid">
+  {% for book in books %}
+    <div class="book-card">
+      <img src="{% static book.pic_path %}" alt="{{ book.name }}" class="book-image">
+      <div class="book-info">
+        <h3 class="book-title"><a href="{% url 'book_detail' book.id %}">{{ book.name }}</a></h3>
+        <p class="book-author">{{ book.username }}</p>
+        <p class="book-price">from: <span>${{ book.price }}</span></p>
+      </div>
+    </div>
+  {% endfor %}
+</div>
 {% endblock content %}
