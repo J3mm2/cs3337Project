@@ -106,7 +106,7 @@ def toggle_favorite(request, book_id):
     return redirect('book_detail', book_id=book_id)
 
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def my_favorites(request):
     favorites = Favorite.objects.filter(user=request.user).select_related('book')
     books = [fav.book for fav in favorites]
@@ -140,7 +140,7 @@ class Register(CreateView):
         form.save()
         return HttpResponseRedirect(self.success_url)
 
-
+@login_required(login_url='/accounts/login/')
 def mybooks(request):
     books = Book.objects.filter(username=request.user)
     for b in books:

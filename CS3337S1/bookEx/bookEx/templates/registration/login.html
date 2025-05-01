@@ -2,30 +2,48 @@
 {% load static %}
 
 {% block sidenav %}
-      <li>
-        <a href="/">  Home </a>
-      </li>
+    <li><a href="/">Home</a></li>
 {% endblock sidenav %}
 
 {% block content %}
-  <h1>User Login</h1>
+<div style="display: flex; justify-content: center; align-items: center; height: 80vh;">
+  <div style="
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+  ">
+    <h1 style="text-align: center; margin-bottom: 30px;">User Login</h1>
     <form action="{% url 'login' %}" method="post">
-      <table>
-         {{ form.as_table }}
-          <tr>
-             <td>
-                 <input type="submit" value="login">
-             </td>
-          </tr>
+      <table style="width: 100%; margin-bottom: 20px;">
+        {{ form.as_table }}
+        <tr>
+          <td colspan="2" style="text-align: center; padding-top: 10px;">
+            <input type="submit" value="Login" style="
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: bold;
+            ">
+          </td>
+        </tr>
       </table>
-        <p>
-            To register
-        </p>
-
+      <p style="text-align: center; font-size: 14px;">
+        Don't have an account?
+        <a href="{% url 'register' %}">Register here</a>
+      </p>
       <input type="hidden" name="next" value="{{ next }}" />
       {% csrf_token %}
-     </form>
+    </form>
+  </div>
+</div>
 {% endblock content %}
+
 
 
 
