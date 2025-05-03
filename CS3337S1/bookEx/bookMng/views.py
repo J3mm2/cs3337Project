@@ -159,3 +159,23 @@ def about_us(request):
                   {
                       'item_list': MainMenu.objects.all()
                   })
+
+
+def search_books(request):
+    query = request.GET.get('q', '')
+
+    if query:
+        books = Book.objects.filter(name__icontains=query)
+    else:
+        books = Book.objects.none()
+
+    for b in books:
+        b.pic_path = b.picture.url[14:]
+
+    return render(request,
+                  'bookMng/search_book.html',
+                  {
+                      'item_list': MainMenu.objects.all(),
+                      'books': books,
+                      'query': query
+                  })

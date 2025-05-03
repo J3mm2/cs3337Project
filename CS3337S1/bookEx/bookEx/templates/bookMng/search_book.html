@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block sidenav %}
+   {% for item in item_list %}
+      <li>
+        <a href="{{ item.link }}">  {{ item.item }} </a>
+      </li>
+   {% endfor %}
+{% endblock sidenav %}
+
+{% block content %}
+    {% if query %}
+        <h1>Search results for: <strong>{{ query }}</strong></h1>
+    {% endif %}
+
+   <div class="search-container" style="margin: 20px 0;">
+       <form method="GET" action="{% url 'search_books' %}">
+           <input type="text" name="q" placeholder="Search for books..."
+                  style="padding: 8px; width: 300px; margin-right: 10px;">
+           <button type="submit" style="padding: 8px 15px;">Search</button>
+       </form>
+   </div>
+    
+    {% if books %}
+        <div class="book-list">
+            {% for book in books %}
+                <div class="book-item" style="margin: 20px 0; border: 1px solid #ddd; padding: 10px;">
+                    <h3><a href="{% url 'book_detail' book.id %}">{{ book.name }}</a></h3>
+                    {% if book.pic_path %}
+                        <img src="{% static book.pic_path %}" alt="{{ book.name }}" style="max-width: 200px;">
+                    {% endif %}
+                    <p>Price: ${{ book.price }}</p>
+                    <p>Published: {{ book.publishdate }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        {% if query %}
+            <p>No books found matching your search.</p>
+        {% else %}
+            <p>Please enter a search term.</p>
+        {% endif %}
+    {% endif %}
+    
+    <p><a href="{% url 'index' %}">Back to Home</a></p>
+{% endblock content %}

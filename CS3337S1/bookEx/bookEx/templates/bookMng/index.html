@@ -11,4 +11,11 @@
 
 {% block content %}
    <h1>Welcome to Book Exchange System</h1>
+   <div class="search-container" style="margin: 20px 0;">
+       <form method="GET" action="{% url 'search_books' %}">
+           <input type="text" name="q" placeholder="Search for books..."
+                  style="padding: 8px; width: 300px; margin-right: 10px;">
+           <button type="submit" style="padding: 8px 15px;">Search</button>
+       </form>
+   </div>
 {% endblock content %}
