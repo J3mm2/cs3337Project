@@ -10,23 +10,32 @@
 {% endblock sidenav %}
 
 {% block content %}
-    <h1>My Favorite List</h1>
-    <table class="book-table">
-        <tr>
-            <th>Book Picture</th>
-            <th>Book Name</th>
-            <th>Book Price</th>
-        </tr>
-        {% for book in books %}
-        <tr>
-            <td>
-                <img src="{% static book.pic_path %}" width="100" />
-            </td>
-            <td>
-                <a href="{% url 'book_detail' book.id %}">{{ book.name }}</a>
-            </td>
-            <td>{{ book.price }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <h2 class="text-center mb-4 text-success">My Favorite Books</h2>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle shadow rounded-4 overflow-hidden">
+            <thead style="background-color: pink;" class="text-dark text-center">
+                <tr>
+                    <th>Book Picture</th>
+                    <th>Book Name</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white">
+                {% for book in books %}
+                    <tr>
+                        <td class="text-center">
+                            <img src="{% static book.pic_path %}" alt="{{ book.name }}" width="90" height="130" class="rounded shadow-sm border border-dark">
+                        </td>
+                        <td>
+                            <a href="{% url 'book_detail' book.id %}" class="text-decoration-none text-dark fw-bold">
+                                {{ book.name }}
+                            </a>
+                        </td>
+                        <td>${{ book.price }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock content %}
