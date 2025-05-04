@@ -1,44 +1,79 @@
-/* General Reset */
-* {
+
+body {
+    background: url("/static/forest_gif.gif") no-repeat center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 22px;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-/* Body and Layout */
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #333;
-}
 
-/* Header (Banner) */
 header {
-    background: darkseagreen;
+    background-color: #35b51f;
     color: white;
-    padding: 20px 0;
-    text-align: center;
+    padding: 20px;
+    position: relative;
 }
 
-.banner h1 {
-    margin: 0;
+.auth-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 18px;
 }
 
-/* Container for Sidebar and Content */
+.auth-controls a,
+.auth-controls button,
+.navbar-nav .nav-link,
+.about-us-btn {
+    color: white;
+    background: none;
+    border: none;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 15px;
+    padding: 8px 16px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.auth-controls a:hover,
+.auth-controls button:hover,
+.navbar-nav .nav-link:hover,
+.about-us-btn:hover {
+    background-color: pink;
+    color: darkgreen !important;
+}
+
+
+.navbar {
+    background-color: #35b51f;
+}
+
+.banner img {
+    height: 120px;
+    width: 350px;
+}
+
+/* Sidebar */
 .container {
     display: flex;
     min-height: 80vh;
-    padding: 20px;
 }
 
-/* Sidebar (Main Menu) */
 .sidebar {
-    width: 200px;
-    background-color: darkseagreen;
+    background-color: #35b51f;
     color: white;
+    width: 220px;
     padding: 20px;
     flex-shrink: 0;
+    border-radius: 20px;
+    margin-left: 15px;
+    margin-top: 20px;
+    height: fit-content;
 }
 
 .sidebar ul {
@@ -53,102 +88,88 @@ header {
 .sidebar ul li a {
     color: white;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 22px;
+    border-radius: 50px;
+    padding: 8px 16px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
 }
 
 .sidebar ul li a:hover {
-    text-decoration: underline;
+    background-color: pink;
+    color: darkgreen;
 }
 
-/* Main Content */
 .content {
     flex-grow: 1;
-    margin-left: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 30px;
+    margin: 20px;
+    border: 2px solid darkgreen;
 }
 
-.content section {
-    margin-bottom: 20px;
-}
 
-.content h2 {
-    color: #333;
-}
-
-.content p {
-    font-size: 1.1em;
-    line-height: 1.6;
-}
-
-/* Footer */
 footer {
-    background: #333;
+    background-color: #228B22;
     color: white;
     text-align: center;
     padding: 10px 0;
-    margin-top: 20px;
 }
 
-footer p {
-    font-size: 14px;
+/* Oval text boxess & Buttons /
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="file"],
+textarea,
+select {
+    border-radius: 50px !important;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin-bottom: 15px;
 }
 
-/* Display Book Styling*/
-.book-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  padding: 20px;
-  justify-content: start;
+input[type="submit"],
+button,
+.btn {
+    border-radius: 50px !important;
+    padding: 10px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-.book-card {
-  width: calc(33.33% - 24px);
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform 0.2s ease-in-out;
-  display: flex;
-  flex-direction: column;
+button:hover,
+input[type="submit"]:hover,
+.btn:hover {
+    background-color: pink !important;
+    color: darkgreen !important;
 }
 
-.book-card:hover {
-  transform: translateY(-4px);
+.book-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 18px;
 }
 
-.book-image {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
+.book-table th,
+.book-table td {
+    padding: 10px;
+    border: 2px solid #333;
+    text-align: left;
+    border-radius: 20px;
 }
 
-.book-info {
-  padding: 12px;
+.book-table tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
-.book-title a {
-  font-size: 25px;
-  font-weight: bold;
-  text-decoration: none;
-  color: #283747 ;
-}
-
-.book-title a:hover {
-  text-decoration: underline;
-}
-
-.book-author {
-  font-size: 14px;
-  color: #444;
-  margin-top: 6px;
-}
-
-.book-price {
-  font-size: 14px;
-  color: #444;
-  margin-top: 4px;
-}
-
-.book-price span {
-  color: #b12704;
-  font-weight: bold;
+.book-table tr:nth-child(odd) {
+    background-color: #ffffff;
 }
