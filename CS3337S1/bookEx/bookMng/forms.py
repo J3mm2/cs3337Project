@@ -14,6 +14,12 @@ class BookForm(ModelForm):
             'price',
             'picture',
         ]
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control rounded-pill'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control rounded-pill'}),
+            'web': forms.URLInput(attrs={'class': 'form-control rounded-pill'}),
+            'description': forms.Textarea(attrs={'class': 'form-control rounded-pill'}),
+        }
 
 class CommentForm(ModelForm):
     class Meta:
