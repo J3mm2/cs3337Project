@@ -21,16 +21,24 @@ header {
     background-color: darkseagreen;
     color: white;
     padding: 20px;
-    position: relative;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.banner img {
+    height: 120px;
+    width: 350px;
 }
 
 .auth-controls {
     display: flex;
+    flex-wrap: wrap;
     gap: 15px;
     align-items: center;
+    justify-content: flex-end;
+    margin-left: auto;
 }
 
 .auth-controls a,
@@ -55,39 +63,51 @@ header {
     color: darkgreen !important;
 }
 
-.banner img {
-    height: 120px;
-    width: 350px;
-}
-
-/* Layout */
 .container {
     display: flex;
-    min-height: 80vh;
+    align-items: stretch;
+    min-height: calc(100vh - 160px);
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 30px;
 }
 
 .sidebar {
     background-color: darkseagreen;
     color: white;
-    width: 220px;
-    padding: 20px;
-    flex-shrink: 0;
+    width: 250px; /* fixed width */
+    min-height: 600px; /* fixed height in fullscreen */
+    padding: 20px 20px 20px 16px;
     border-radius: 20px;
-    margin-left: 15px;
-    margin-top: 20px;
-    height: fit-content;
+    box-sizing: border-box;
+    flex-shrink: 0;
 }
 
-.sidebar ul {
+
+.hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    font-family: 'Abril Fatface', serif;
+    margin-bottom: 20px;
+}
+
+.sidebar-links {
+    display: block;
+}
+
+.sidebar ul,
+.sidebar-links {
     list-style-type: none;
     padding: 0;
+    margin: 0;
 }
 
-.sidebar ul li {
+.sidebar-links li {
     margin: 10px 0;
 }
 
-.sidebar ul li a {
+.sidebar-links li a {
     color: white;
     text-decoration: none;
     font-size: 22px;
@@ -98,21 +118,22 @@ header {
     transition: background-color 0.3s ease;
 }
 
-.sidebar ul li a:hover {
+.sidebar-links li a:hover {
     background-color: honeydew;
     color: darkgreen;
 }
 
 .content {
     flex-grow: 1;
-    padding: 20px;
     background-color: rgba(255, 255, 255, 0.85);
     border-radius: 30px;
-    margin: 20px;
     border: 2px solid darkgreen;
+    padding: 40px;
+    box-sizing: border-box;
+    overflow-y: auto;
 }
 
-/* Inputs & Buttons */
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -147,13 +168,13 @@ input[type="submit"]:hover,
     color: darkgreen !important;
 }
 
-/* Table */
 table.book-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
-    border-radius: 12px;
+    border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
@@ -161,13 +182,31 @@ table.book-table {
 table.book-table th,
 table.book-table td {
     padding: 10px;
-    border: 2px solid darkgreen;
     text-align: center;
     font-weight: bold;
     background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid darkgreen;
 }
 
-table.book-table th{
+table.book-table tr:first-child th:first-child {
+    border-top-left-radius: 20px;
+    background-color: honeydew;
+}
+
+table.book-table tr:first-child th:last-child {
+    border-top-right-radius: 20px;
+    background-color: honeydew;
+}
+
+table.book-table tr:last-child td:first-child {
+    border-bottom-left-radius: 20px;
+}
+
+table.book-table tr:last-child td:last-child {
+    border-bottom-right-radius: 20px;
+}
+
+table.book-table th {
     background-color: honeydew;
     font-family: 'Abril Fatface', serif;
     font-size: 20px;
@@ -189,12 +228,16 @@ footer {
     padding: 10px 0;
 }
 
-/* Responsive for navbar only */
 @media (max-width: 768px) {
-    .auth-controls {
+    header {
         flex-direction: column;
-        align-items: flex-end;
-        gap: 5px;
+        align-items: flex-start;
+    }
+
+    .auth-controls {
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: flex-start;
         margin-top: 10px;
     }
 }

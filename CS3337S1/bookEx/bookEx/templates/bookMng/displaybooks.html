@@ -11,20 +11,29 @@
 
 {% block content %}
 <h2 class="text-center mb-4">Books</h2>
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-    {% for book in books %}
-    <div class="col">
-        <div class="card h-100 shadow-sm border-success rounded-4">
-            <img src="{% static book.pic_path %}" class="card-img-top img-fluid rounded-top" style="height: 250px; object-fit: cover;" alt="{{ book.name }}">
-            <div class="card-body">
-                <h5 class="card-title">
-                    <a href="{% url 'book_detail' book.id %}" class="text-decoration-none text-success">{{ book.name }}</a>
-                </h5>
-                <p class="card-text text-muted">Posted by: {{ book.username }}</p>
-                <p class="card-text"><strong>From:</strong> ${{ book.price }}</p>
+
+<!-- Add padding to give space at the top -->
+<div style="padding-top: 15px;">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        {% for book in books %}
+        <div class="col">
+            <div class="card h-100 shadow-sm border-success rounded-4">
+                <img src="{% static book.pic_path %}" class="card-img-top img-fluid"
+                     style="height: 360px; object-fit: contain; padding: 10px; background-color: white; border-top-left-radius: 1rem; border-top-right-radius: 1rem;"
+                     alt="{{ book.name }}">
+
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'book_detail' book.id %}" class="text-decoration-none text-success">
+                            {{ book.name }}
+                        </a>
+                    </h5>
+                    <p class="card-text text-muted">Posted by: {{ book.username }}</p>
+                    <p class="card-text"><strong>From:</strong> ${{ book.price }}</p>
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endblock content %}
