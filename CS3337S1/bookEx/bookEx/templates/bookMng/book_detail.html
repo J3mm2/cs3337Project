@@ -27,7 +27,33 @@
     </div>
 </div>
 
+ <!-- Rating -->
+{% if user.is_authenticated %}
+  <form method="post" style="margin-top: 20px;">
+    {% csrf_token %}
+    <input type="hidden" name="stars" id="stars-input">
+    <div style="font-size: 30px;">
+      {% for i in "12345"|make_list %}
+        <button type="submit" name="stars" value="{{ i }}"
+          style="background: none;
+          border: none;
+          cursor: pointer;
+          color: {% if user_rating >= i|add:'0' %}gold{% else %}#ccc{% endif %};">
+          ★
+        </button>
+      {% endfor %}
+    </div>
+  </form>
+{% else %}
+  <p><a href="{% url 'login' %}">Login</a> to rate this book.</p>
+{% endif %}
 
+<p style="margin-top: 10px;">
+  Average Rating: <strong>{{ avg_rating|floatformat:1 }}</strong> ({{ total_ratings }} rating{{ total_ratings|pluralize }})
+</p>
+
+
+ <!-- Favorite -->
     {% if user.is_authenticated %}
   <form action="{% url 'toggle_favorite' book_id=book.id %}" method="post" style="margin-top: 20px;">
     {% csrf_token %}
@@ -51,6 +77,7 @@
   </form>
 {% endif %}
 
+ <!-- Comments -->
    <div style="margin-top: 30px; margin-bottom: 30px;">
       <h2>Comments</h2>
 
