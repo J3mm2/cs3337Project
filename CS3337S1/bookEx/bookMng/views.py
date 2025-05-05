@@ -145,6 +145,13 @@ def my_favorites(request):
                       'books': books
                   })
 
+@login_required
+def remove_favorites(request, book_id):
+    favorite = Favorite.objects.filter(user=request.user, book_id=book_id).first()
+    if favorite:
+        favorite.delete()
+    return redirect('my_favorites')
+
 
 def book_delete(request, book_id):
     book = Book.objects.get(id=book_id)

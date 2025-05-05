@@ -16,6 +16,7 @@
         <table class="book-table">
             <thead>
                 <tr>
+                    <th>Book Cover</th>
                     <th>Book Name</th>
                     <th>Price</th>
                     <th>Posted By</th>
@@ -26,6 +27,9 @@
                 {% for book in books %}
                     <tr>
                         <td>
+                            <img src="{% static book.pic_path %}" alt="{{ book.name }}" width="70" height="100" style="object-fit: cover; border-radius: 6px;">
+                        </td>
+                        <td>
                             <a href="{% url 'book_detail' book.id %}" style="text-decoration: none; color: #000; font-weight: bold;">
                                 {{ book.name }}
                             </a>
@@ -33,9 +37,12 @@
                         <td>${{ book.price }}</td>
                         <td>{{ book.username }}</td>
                         <td>
-                            <a href="{% url 'book_delete' book.id %}" class="btn btn-sm btn-outline-danger rounded-pill">
-                                <i class="fas fa-trash-alt"></i> Delete
-                            </a>
+                            <form method="post" action="{% url 'book_delete' book.id %}" onsubmit="return confirm('Are you sure you want to delete this book?');">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 {% endfor %}
