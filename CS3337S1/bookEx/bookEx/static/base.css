@@ -12,9 +12,9 @@ body {
 
 h1, h2, h3, h4, h5, h6,
 .banner h1 {
-    font-family: 'Abril Fatface', serif;
-    font-weight: normal;
-    color: #004d00;
+    font-family: 'Abril Fatface', serif !important;
+    font-weight: normal !important;
+    color: #004d00 !important;
 }
 
 header {
