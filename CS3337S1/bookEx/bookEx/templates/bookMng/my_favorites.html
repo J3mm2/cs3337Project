@@ -12,27 +12,25 @@
 {% block content %}
     <h2 class="text-center mb-4 text-success">My Favorite Books</h2>
 
-    <div class="table-responsive">
-        <table class="table table-hover align-middle shadow rounded-4 overflow-hidden">
-            <thead style="background-color: pink;" class="text-dark text-center">
+    <div class="table-container" style="overflow-x: auto;">
+        <table class="book-table">
+            <thead>
                 <tr>
-                    <th>Book Picture</th>
                     <th>Book Name</th>
                     <th>Price</th>
+                    <th>Posted By</th>
                 </tr>
             </thead>
-            <tbody class="bg-white">
+            <tbody>
                 {% for book in books %}
                     <tr>
-                        <td class="text-center">
-                            <img src="{% static book.pic_path %}" alt="{{ book.name }}" width="90" height="130" class="rounded shadow-sm border border-dark">
-                        </td>
                         <td>
                             <a href="{% url 'book_detail' book.id %}" class="text-decoration-none text-dark fw-bold">
                                 {{ book.name }}
                             </a>
                         </td>
                         <td>${{ book.price }}</td>
+                        <td>{{ book.username }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
