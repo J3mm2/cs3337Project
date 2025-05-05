@@ -15,4 +15,5 @@ urlpatterns = [
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
     path('search/', views.search_books, name='search_books'),
     path('favorites/remove/<int:book_id>/', views.remove_favorites, name='remove_favorites'),
+    path('comment/delete/<int:comment_id>/', views.delete_comment, name='delete_comment'),
 ]

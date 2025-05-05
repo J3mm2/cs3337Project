@@ -212,3 +212,10 @@ def search_books(request):
                       'books': books,
                       'query': query
                   })
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id, user=request.user)
+    book_id = comment.book.id
+    comment.delete()
+    return redirect('book_detail', book_id=book_id)
