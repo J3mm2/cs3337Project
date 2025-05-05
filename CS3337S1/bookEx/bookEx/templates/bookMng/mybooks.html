@@ -10,31 +10,31 @@
 {% endblock sidenav %}
 
 {% block content %}
-    <h2 class="text-center mb-4 text-success"> My Posted Books</h2>
+    <h2 class="text-center mb-4 text-success">My Posted Books</h2>
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle shadow rounded-4 overflow-hidden">
-            <thead class="table-success text-center">
+    <div class="table-container" style="overflow-x: auto;">
+        <table class="book-table">
+            <thead>
                 <tr>
                     <th>Book Name</th>
-                    <th></th>Price</th>
-                    <th> Posted By</th>
-                    <th> Delete</th>
+                    <th>Price</th>
+                    <th>Posted By</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
                 {% for book in books %}
                     <tr>
                         <td>
-                            <a href="{% url 'book_detail' book.id %}" class="text-decoration-none text-dark fw-bold">
+                            <a href="{% url 'book_detail' book.id %}" style="text-decoration: none; color: #000; font-weight: bold;">
                                 {{ book.name }}
                             </a>
                         </td>
                         <td>${{ book.price }}</td>
                         <td>{{ book.username }}</td>
-                        <td class="text-center">
+                        <td>
                             <a href="{% url 'book_delete' book.id %}" class="btn btn-sm btn-outline-danger rounded-pill">
-                                Delete
+                                <i class="fas fa-trash-alt"></i> Delete
                             </a>
                         </td>
                     </tr>
