@@ -44,7 +44,11 @@
     </div>
   </form>
 {% else %}
-  <p><a href="{% url 'login' %}">Login</a> to rate this book.</p>
+  <p>
+    <a href="{% url 'login' %}" style="color: #003366; font-weight: bold; text-decoration: underline;">
+      Login
+    </a> to rate this book.
+  </p>
 {% endif %}
 
 <p style="margin-top: 10px;">
@@ -68,7 +72,6 @@
     ">
       <i class="{% if is_favorite %}fas{% else %}far{% endif %} fa-heart"></i>
       {% if is_favorite %} Favorited — Click to Remove {% else %} Add to Favorites {% endif %}
-
     </button>
   </form>
 {% endif %}
@@ -95,9 +98,8 @@
                         margin-top: 10px;
                         color: #cc0000;
                         font-weight: bold;
-                        cursor: pointer;">
-                        Delete
-                    </button>
+                        cursor: pointer;
+                    ">🗑️ Delete</button>
                  </form>
               {% endif %}
            </div>
@@ -125,6 +127,12 @@
               color: #003366;
            ">Submit Comment</button>
         </form>
+     {% else %}
+        <p>
+          <a href="{% url 'login' %}" style="color: #003366; font-weight: bold; text-decoration: underline;">
+            Login to comment
+          </a>
+        </p>
      {% endif %}
   </div>
 </div>
