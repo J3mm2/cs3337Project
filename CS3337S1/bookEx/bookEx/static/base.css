@@ -20,7 +20,7 @@ h1, h2, h3, h4, h5, h6,
 header {
     background-color: darkseagreen;
     color: white;
-    padding: 20px;
+    padding: 20px 20px 20px 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -239,5 +239,39 @@ footer {
         flex-direction: row;
         justify-content: flex-start;
         margin-top: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        height: 100%;
+        width: 250px;
+        z-index: 999;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .hamburger {
+        display: block;
+        position: fixed;
+        top: 140px;
+        left: 20px;
+        z-index: 1000;
+        background-color: darkseagreen;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 10px;
+        font-size: 24px;
+    }
+
+    .container {
+        margin-left: 0 !important;
+        padding-left: 20px;
     }
 }
