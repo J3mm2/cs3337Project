@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.db.models import Avg, Count
+from .models import Book, Comment, Favorite, Rating, MainMenu
 
 
 # Create your views here.
@@ -68,6 +70,26 @@ def book_detail(request, book_id):
     if request.user.is_authenticated:
         is_favorite = Favorite.objects.filter(user=request.user, book=book).exists()
 
+    #Handle rating
+    user_rating = None
+    if request.user.is_authenticated:
+        user_rating_obj = Rating.objects.filter(book=book, user=request.user).first()
+        user_rating = user_rating_obj.stars if user_rating_obj else 0
+
+    if request.method == 'POST' and 'stars' in request.POST and request.user.is_authenticated:
+        stars = int(request.POST.get('stars'))
+        Rating.objects.update_or_create(user=request.user, book=book, defaults={'stars': stars})
+        return redirect('book_detail', book_id=book_id)
+
+    avg_rating = book.ratings.aggregate(avg=Avg('stars'))['avg'] or 0
+    total_ratings = book.ratings.count()
+
+    raw_breakdown = book.ratings.values('stars').annotate(count=Count('stars'))
+    rating_breakdown = {i: 0 for i in range(1, 6)}
+    for entry in raw_breakdown:
+        rating_breakdown[entry['stars']] = entry['count']
+
+
     # Handle comment form
     comment_form = None
     if request.user.is_authenticated:
@@ -89,7 +111,11 @@ def book_detail(request, book_id):
                       'book': book,
                       'is_favorite': is_favorite,
                       'comments': comments,
-                      'comment_form': comment_form
+                      'comment_form': comment_form,
+                      'user_rating': user_rating,
+                      'avg_rating': avg_rating,
+                      'total_ratings': total_ratings,
+                      'rating_breakdown': rating_breakdown,
                   })
 
 
