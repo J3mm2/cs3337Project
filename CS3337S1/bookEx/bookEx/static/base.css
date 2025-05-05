@@ -1,40 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins&display=swap');
 
 body {
     background: url("/static/forest_gif.gif") no-repeat center fixed;
     background-size: cover;
-    font-family: Arial, sans-serif;
-    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
     font-size: 22px;
     margin: 0;
     padding: 0;
+    font-weight: bold;
 }
 
+h1, h2, h3, h4, h5, h6,
+.banner h1 {
+    font-family: 'Abril Fatface', serif;
+    font-weight: normal;
+    color: #004d00;
+}
 
 header {
     background-color: darkseagreen;
     color: white;
     padding: 20px;
     position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .auth-controls {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 18px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
 
 .auth-controls a,
 .auth-controls button,
-.navbar-nav .nav-link,
 .about-us-btn {
     color: white;
     background: none;
     border: none;
     font-size: 22px;
     font-weight: bold;
+    font-family: 'Abril Fatface', serif;
     text-decoration: none;
-    margin-left: 15px;
     padding: 8px 16px;
     border-radius: 50px;
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -42,15 +50,9 @@ header {
 
 .auth-controls a:hover,
 .auth-controls button:hover,
-.navbar-nav .nav-link:hover,
 .about-us-btn:hover {
-    background-color: pink;
+    background-color: honeydew;
     color: darkgreen !important;
-}
-
-
-.navbar {
-    background-color: darkseagreen;
 }
 
 .banner img {
@@ -58,7 +60,7 @@ header {
     width: 350px;
 }
 
-/* Sidebar */
+/* Layout */
 .container {
     display: flex;
     min-height: 80vh;
@@ -89,6 +91,7 @@ header {
     color: white;
     text-decoration: none;
     font-size: 22px;
+    font-family: 'Abril Fatface', serif;
     border-radius: 50px;
     padding: 8px 16px;
     display: inline-block;
@@ -96,7 +99,7 @@ header {
 }
 
 .sidebar ul li a:hover {
-    background-color: pink;
+    background-color: honeydew;
     color: darkgreen;
 }
 
@@ -109,15 +112,7 @@ header {
     border: 2px solid darkgreen;
 }
 
-
-footer {
-    background-color: #228B22;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-}
-
-/* Oval text boxess & Buttons /
+/* Inputs & Buttons */
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -130,6 +125,8 @@ select {
     font-weight: bold;
     border: 1px solid #ccc;
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     margin-bottom: 15px;
 }
 
@@ -146,10 +143,11 @@ button,
 button:hover,
 input[type="submit"]:hover,
 .btn:hover {
-    background-color: pink !important;
+    background-color: honeydew !important;
     color: darkgreen !important;
 }
 
+/* Table */
 .book-table {
     width: 100%;
     border-collapse: collapse;
@@ -172,4 +170,21 @@ input[type="submit"]:hover,
 
 .book-table tr:nth-child(odd) {
     background-color: #ffffff;
+}
+
+footer {
+    background-color: #228B22;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Responsive for navbar only */
+@media (max-width: 768px) {
+    .auth-controls {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 5px;
+        margin-top: 10px;
+    }
 }
