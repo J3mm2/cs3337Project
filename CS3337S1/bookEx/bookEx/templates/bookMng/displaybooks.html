@@ -12,6 +12,14 @@
 {% block content %}
 <h2 class="text-center mb-4">Books</h2>
 
+<div class="search-container" style="margin: 20px 0; display: flex; justify-content: center;">
+    <form method="GET" action="{% url 'search_books' %}" style="display: flex;">
+        <input type="text" name="q" placeholder="Search for books..."
+               style="padding: 8px; width: 300px;">
+        <button type="submit" style="padding: 8px 15px; margin-left: 10px;">Search</button>
+    </form>
+</div>
+
 <!-- Add padding to give space at the top -->
 <div style="padding-top: 15px;">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
