@@ -30,6 +30,7 @@ header {
 .banner img {
     height: 120px;
     width: 350px;
+
 }
 
 .auth-controls {
@@ -63,6 +64,21 @@ header {
     color: darkgreen !important;
 }
 
+.nav-user {
+    color: white;
+    font-size: 22px;
+    font-family: 'Abril Fatface', serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+}
+
+.nav-user.no-icon {
+    display: none;
+}
+
+
 .container {
     display: flex;
     align-items: stretch;
@@ -84,7 +100,7 @@ header {
 }
 
 
-.hamburger {
+#hamburger {
     display: none;
     font-size: 28px;
     cursor: pointer;
@@ -257,7 +273,7 @@ footer {
         left: 0;
     }
 
-    .hamburger {
+    #hamburger {
         display: block;
         position: fixed;
         top: 140px;
@@ -274,4 +290,21 @@ footer {
         margin-left: 0 !important;
         padding-left: 20px;
     }
+}
+
+
+/* Hide hamburger and close button on large screens */
+@media (min-width: 769px) {
+  #hamburger,
+  .close-btn {
+    display: none !important;
+  }
+}
+
+/* Show hamburger and close button only on small screens */
+@media (max-width: 768px) {
+  #hamburger,
+  .close-btn {
+    display: block;
+  }
 }

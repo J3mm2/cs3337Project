@@ -12,23 +12,26 @@
 </head>
 <body>
 
-    <!-- Hamburger for small screens -->
-    <button class="hamburger" onclick="toggleSidebar()">☰</button>
 
     <header>
-        <div class="banner">
-            <img src="{% static 'book_banner.jpeg' %}" alt="Banner">
-        </div>
+            <div class="banner">
+                <img src="{% static 'book_banner.jpeg' %}" alt="Banner">
+            </div>
+
         <div class="auth-controls">
+            <!-- Hamburger (☰) to open sidebar -->
+            <button id="hamburger" onclick="toggleSidebar()">☰</button>
             <a href="/">Home</a>
             {% if user.is_authenticated %}
-                <span style="font-family: 'Abril Fatface', serif; color: white;">{{ user.username }}</span>
+                <span class="nav-user">
+                    <i class="fas fa-user"></i> {{ user.username }}
+                </span>
                 <form action="{% url 'logout' %}?next=/" method="post" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit">Logout</button>
                 </form>
             {% else %}
-                <span style="font-family: 'Abril Fatface', serif; color: white;">Not Logged In</span>
+                <span class="nav-user no-icon">Not Logged In</span>
                 <a href="{% url 'login' %}?next=/">Login</a>
             {% endif %}
             <a href="{% url 'about_us' %}" class="about-us-btn">About Us</a>
@@ -37,6 +40,9 @@
 
     <div class="container">
         <nav class="sidebar" id="sidebar">
+            <!-- ✕ button in top-right of sidebar -->
+            <button class="close-btn" onclick="toggleSidebar()">✕</button>
+
             <ul class="sidebar-links">
                 <li><a href="{% url 'postbook' %}">Post Book</a></li>
                 <li><a href="{% url 'displaybooks' %}">Display Books</a></li>
@@ -59,9 +65,17 @@
 
     <script>
         function toggleSidebar() {
-            document.getElementById("sidebar").classList.toggle("active");
+            const sidebar = document.getElementById("sidebar");
+            const hamburger = document.getElementById("hamburger");
+
+            sidebar.classList.toggle("active");
+            if (sidebar.classList.contains("active")) {
+                hamburger.style.display = "none";
+            } else {
+                hamburger.style.display = "block";
+            }
         }
     </script>
-
 </body>
+
 </html>
