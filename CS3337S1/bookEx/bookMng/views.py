@@ -22,7 +22,7 @@ def index(request):
 
     return render(request, 'bookMng/index.html', {'item_list': item_list})
 
-
+@login_required(login_url='/accounts/login/')
 def postbook(request):
     submitted = False
     if request.method == 'POST':
